@@ -1,0 +1,106 @@
+<!DOCTYPE>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Bejeweled</title>
+    <script src="scripts/jquery.min.js"></script>
+    <script src="scripts/jquery-ui.custom.min.js"></script>
+    <script src="scripts/script.js"></script>
+    <script src="scripts/draganddrop.js"></script>
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body onload="carga()">
+
+    <div class="main-container">
+        <span class="luz" id="intermitencia"><b>Match Game</b></span>
+
+        <div class="panel-tablero">
+
+            <div id="grid" class="imgdulces"></div>
+
+        </div>
+
+        <div class="panel-score">
+            <div class="score">
+                <h2 class="data-titulo">Puntuación</h2>
+                <span class="data-info" id="points">0</span>
+            </div>
+            <div class="moves">
+                <h2 class="data-titulo">Movimientos</h2>
+                <span class="data-info" id="movimientos">0</span>
+            </div>
+            <div class="time">
+                <h2 class="data-titulo">Tiempo</h2>
+                   <div class="data-info" id="timer">
+                   <span id="minutos">0</span>:<span id="segundos">0</span>
+                   </div>
+            </div>
+            <div class="buttons">
+                <button class="btn-reinicio">Iniciar</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        (function() {
+            setInterval(function() {//Código que controla la intermitencia de cambio de colores del título
+                var el = document.getElementById('intermitencia');
+                if (el.className == 'luz') {
+                    el.className = 'luz on';
+                } else {
+                    el.className = 'luz';
+                }
+            }, 1000);
+
+        })();
+
+        function carga() { //Código para el cronómetro que mide el tiempo de juego
+            contador_s = 0;
+            contador_m = 0;
+            s = document.getElementById('segundos');
+            m = document.getElementById('minutos');
+            window.setInterval(function() {
+                if (contador_s == 60) {
+                    contador_s = 0;
+                    contador_m++;
+                    m.innerHTML = contador_m;
+                    if (contador_m == 0) {
+                        contador_m = 0;
+                    }
+                }
+                s.innerHTML = contador_s;
+                contador_s++;
+            }, 10);
+        }
+
+    </script>
+
+    <style>
+        .luz.on {
+            color: #ffeb3b;
+            font-family: gameFont;
+        }
+
+        .luz {
+            font-size: 50px;
+            color: #ff8f00;
+            font-family: gameFont;
+        }
+
+    </style>
+
+    <div id="points"></div>
+
+    <script>
+        $(function() { //Cript que llama al script del juego de dulces
+            juegoDulces = juegoDulces || {};
+            juegoDulces.init();
+        });
+
+    </script>
+</body>
+
+</html>
